@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHN Shipper Simulator - Giả Lập Giao Hàng</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .config-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .config-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .config-header:hover {
+            background: #e9ecef;
+        }
+
+        .config-header h3 {
+            color: #495057;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .config-toggle {
+            font-size: 20px;
+            color: #6c757d;
+            transition: transform 0.3s;
+        }
+
+        .config-toggle.open {
+            transform: rotate(180deg);
+        }
+
+        .config-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: white;
+        }
+
+        .config-content.open {
+            max-height: 300px;
+        }
+
+        .config-body {
+            padding: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #495057;
+            min-width: 80px;
+        }
+
+        .input-group input {
+            flex: 1;
+            min-width: 300px;
+            padding: 10px 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+
+        .btn-save {
+            padding: 10px 24px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-save:hover {
+            background: #218838;
+        }
+
+        .config-tip {
+            background: #fff3e0;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #e65100;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .order-input-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .order-input-section h2 {
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        #orderIdInput {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        #orderIdInput:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+
+        .btn-fetch {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-fetch:hover {
+            background: #e55a2b;
+        }
+
+        .order-detail-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .order-detail-section h2 {
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        .order-detail-content {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #495057;
+            font-size: 13px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .detail-value {
+            color: #212529;
+            font-size: 15px;
+            word-break: break-word;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 15px;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-readytopick {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-picking {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-picked {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-storing {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-transporting {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-sorting {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-delivering {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-delivered {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-received {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-deliveryfail {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .status-delivery_fail {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .status-returning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-returned {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .status-exception {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .status-damage {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .status-lost {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .status-cancelled {
+            background: #e2e3e5;
+            color: #41464b;
+        }
+
+        .status-refunded {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .order-history {
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .order-history h3 {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .history-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 3px solid #ff6b35;
+        }
+
+        .history-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .history-time {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+
+        .history-status {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .status-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .status-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .status-card h3 {
+            color: #495057;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .status-card p {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .status-card button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        .status-card button:hover {
+            transform: scale(1.05);
+        }
+
+        .status-card button:active {
+            transform: scale(0.98);
+        }
+
+        .status-card button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status-normal button {
+            background: #ff6b35;
+        }
+
+        .status-normal button:hover {
+            background: #e55a2b;
+        }
+
+        .status-warning button {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .status-warning button:hover {
+            background: #e0a800;
+        }
+
+        .status-danger button {
+            background: #dc3545;
+        }
+
+        .status-danger button:hover {
+            background: #c82333;
+        }
+
+        .status-success button {
+            background: #28a745;
+        }
+
+        .status-success button:hover {
+            background: #218838;
+        }
+
+        .log-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .log-section h2 {
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        #logContainer {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .log-entry {
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border-left: 4px solid;
+        }
+
+        .log-success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .log-error {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .log-info {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+            color: #0c5460;
+        }
+
+        .log-timestamp {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .clear-log-btn {
+            padding: 8px 16px;
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .clear-log-btn:hover {
+            background: #5a6268;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .section-divider {
+            margin: 30px 0;
+            border: none;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .input-group input {
+                min-width: 100%;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚚 GHN Shipper Simulator</h1>
+            <p style="color: #6c757d; margin-top: 10px;">Công cụ giả lập các trạng thái vận chuyển đơn hàng GHN</p>
+        </div>
+
+        <!-- Order ID Input -->
+        <div class="order-input-section">
+            <h2>📦 Nhập Mã GHN</h2>
+            <input type="text" id="orderIdInput" placeholder="Nhập Mã GHN - VD: GHN789011">
+            <button class="btn-fetch" onclick="fetchOrderDetail()">🔍 Lấy thông tin đơn hàng</button>
+        </div>
+
+        <!-- Order Detail Section -->
+        <div class="order-detail-section" id="orderDetailSection" style="display: none;">
+            <h2>📋 Thông tin đơn hàng</h2>
+            <div class="order-detail-content" id="orderDetailContent"></div>
+        </div>
+
+        <!-- Normal Flow Section -->
+        <h2 style="color: white; margin-bottom: 15px;">✅ Luồng Giao Hàng Bình Thường</h2>
+        <div class="status-grid">
+            <div class="status-card status-normal">
+                <h3>🚗 Đang Lấy Hàng</h3>
+                <p>GHN đang trên đường tới seller lấy hàng</p>
+                <button onclick="callApi('test-picking')">Cập nhật Đang Lấy Hàng</button>
+            </div>
+
+            <div class="status-card status-normal">
+                <h3>📦 Đã Lấy Hàng</h3>
+                <p>GHN đã lấy được hàng và vận chuyển tới kho</p>
+                <button onclick="callApi('test-picked')">Cập nhật Đã Lấy Hàng</button>
+            </div>
+
+            <div class="status-card status-normal">
+                <h3>🏪 Đang Nhập Kho</h3>
+                <p>GHN đã đưa hàng đến kho</p>
+                <button onclick="callApi('test-storing')">Cập nhật Đang Nhập Kho</button>
+            </div>
+
+            <div class="status-card status-normal">
+                <h3>🚛 Đang Vận Chuyển</h3>
+                <p>GHN đang vận chuyển hàng</p>
+                <button onclick="callApi('test-transporting')">Cập nhật Đang Vận Chuyển</button>
+            </div>
+
+            <div class="status-card status-normal">
+                <h3>📋 Đang Phân Loại</h3>
+                <p>GHN đang phân loại đơn hàng</p>
+                <button onclick="callApi('test-sorting')">Cập nhật Đang Phân Loại</button>
+            </div>
+
+            <div class="status-card status-normal">
+                <h3>🏃 Đang Giao Hàng</h3>
+                <p>GHN đang giao hàng cho khách</p>
+                <button onclick="callApi('test-delivering')">Cập nhật Đang Giao Hàng</button>
+            </div>
+
+            <div class="status-card status-success">
+                <h3>✅ Đã Giao Hàng</h3>
+                <p>Giao hàng thành công</p>
+                <button onclick="callApi('test-delivered')">Cập nhật Đã Giao Hàng</button>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- Problem Flow Section -->
+        <h2 style="color: white; margin-bottom: 15px;">⚠️ Luồng Gặp Sự Cố</h2>
+        <div class="status-grid">
+            <div class="status-card status-warning">
+                <h3>❌ Giao Hàng Thất Bại</h3>
+                <p>Giao hàng thất bại</p>
+                <button onclick="callApi('test-delivery-fail')">Cập nhật Giao Hàng Thất Bại</button>
+            </div>
+
+            <div class="status-card status-warning">
+                <h3>🔄 Đang Hoàn Hàng</h3>
+                <p>GHN đang trên đường trả hàng cho seller</p>
+                <button onclick="callApi('test-returning')">Cập nhật Đang Hoàn Hàng</button>
+            </div>
+
+            <div class="status-card status-warning">
+                <h3>↩️ Đã Hoàn Hàng</h3>
+                <p>GHN đã trả hàng cho seller</p>
+                <button onclick="callApi('test-return')">Cập nhật Đã Hoàn Hàng</button>
+            </div>
+
+            <div class="status-card status-danger">
+                <h3>⚠️ Gặp Sự Cố</h3>
+                <p>Đơn hàng gặp sự cố (có thể dẫn đến trả hàng)</p>
+                <button onclick="callApi('test-exception')">Cập nhật Gặp Sự Cố</button>
+            </div>
+
+            <div class="status-card status-danger">
+                <h3>💔 Hàng Hư Hỏng</h3>
+                <p>Hàng bị hư hại. GHN bồi thường theo % insurance</p>
+                <button onclick="callApi('test-damage')">Cập nhật Hàng Hư Hỏng</button>
+            </div>
+
+            <div class="status-card status-danger">
+                <h3>🔍 Hàng Thất Lạc</h3>
+                <p>Đơn hàng bị thất lạc. GHN bồi thường 100% cho seller</p>
+                <button onclick="callApi('test-lost')">Cập nhật Hàng Thất Lạc</button>
+            </div>
+        </div>
+
+        <!-- Log Section -->
+        <!-- <div class="log-section">
+            <h2>📋 Nhật ký hoạt động</h2>
+            <button class="clear-log-btn" onclick="clearLog()">🗑️ Xóa log</button>
+            <div id="logContainer"></div>
+        </div> -->
+
+        <!-- Configuration Section - MOVED TO BOTTOM -->
+        <div class="config-section">
+            <div class="config-header" onclick="toggleConfig()">
+                <h3>⚙️ Cấu hình API Endpoint</h3>
+                <span class="config-toggle" id="configToggle">▼</span>
+            </div>
+            <div class="config-content" id="configContent">
+                <div class="config-body">
+                    <div class="input-group">
+                        <label for="apiEndpoint">Base URL:</label>
+                        <input type="text" id="apiEndpoint" placeholder="http://localhost:5219"
+                            value="http://localhost:5000">
+                        <button class="btn-save" onclick="saveEndpoint()">💾 Lưu</button>
+                    </div>
+                    <div class="config-tip">
+                        💡 <strong>Hướng dẫn:</strong> Thay đổi từ <strong>localhost</strong> sang
+                        <strong>staging/production URL</strong> khi cần test trên server. Cấu hình sẽ được lưu tự động
+                        vào trình duyệt.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Load JavaScript files -->
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
