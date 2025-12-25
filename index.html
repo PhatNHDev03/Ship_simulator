@@ -274,43 +274,43 @@
         }
 
         .status-storing {
-            background: #cfe2ff;
-            color: #084298;
+            background: #e7e7ff;
+            color: #3d3d99;
         }
 
         .status-transporting {
-            background: #cfe2ff;
-            color: #084298;
+            background: #ffecd1;
+            color: #996515;
         }
 
         .status-sorting {
-            background: #cfe2ff;
-            color: #084298;
+            background: #ffe4e1;
+            color: #8b4513;
         }
 
         .status-delivering {
-            background: #d1e7dd;
-            color: #0f5132;
+            background: #e0f2f1;
+            color: #00695c;
         }
 
         .status-delivered {
-            background: #d1e7dd;
-            color: #0f5132;
-        }
-
-        .status-received {
-            background: #d1e7dd;
-            color: #0f5132;
+            background: #d4edda;
+            color: #155724;
         }
 
         .status-deliveryfail {
             background: #f8d7da;
-            color: #842029;
+            color: #721c24;
         }
 
-        .status-delivery_fail {
+        .status-waitingtoreturn {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-return {
             background: #f8d7da;
-            color: #842029;
+            color: #721c24;
         }
 
         .status-returning {
@@ -318,142 +318,89 @@
             color: #856404;
         }
 
+        .status-returnfail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
         .status-returned {
-            background: #f8d7da;
-            color: #842029;
-        }
-
-        .status-exception {
-            background: #f8d7da;
-            color: #842029;
-        }
-
-        .status-damage {
-            background: #f8d7da;
-            color: #842029;
-        }
-
-        .status-lost {
-            background: #f8d7da;
-            color: #842029;
-        }
-
-        .status-cancelled {
-            background: #e2e3e5;
-            color: #41464b;
-        }
-
-        .status-refunded {
             background: #d1ecf1;
             color: #0c5460;
         }
 
-        .order-history {
-            margin-top: 20px;
-            background: white;
-            padding: 15px;
-            border-radius: 6px;
+        .status-exception {
+            background: #f8d7da;
+            color: #721c24;
         }
 
-        .order-history h3 {
-            color: #495057;
-            margin-bottom: 15px;
-            font-size: 16px;
+        .status-damage {
+            background: #f8d7da;
+            color: #721c24;
         }
 
-        .history-item {
-            padding: 10px;
-            margin-bottom: 10px;
-            background: #f8f9fa;
-            border-radius: 4px;
-            border-left: 3px solid #ff6b35;
+        .status-lost {
+            background: #343a40;
+            color: #ffffff;
         }
 
-        .history-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .history-time {
-            font-size: 12px;
-            color: #6c757d;
-            margin-bottom: 5px;
-        }
-
-        .history-status {
-            font-weight: 600;
-            color: #495057;
+        .status-cancel {
+            background: #6c757d;
+            color: #ffffff;
         }
 
         .status-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 15px;
-            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         .status-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .status-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
         .status-card h3 {
             color: #495057;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 18px;
         }
 
         .status-card p {
             color: #6c757d;
-            font-size: 14px;
             margin-bottom: 15px;
-            line-height: 1.5;
+            font-size: 14px;
         }
 
         .status-card button {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: none;
             border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            font-weight: 600;
+            transition: background 0.3s;
             color: white;
         }
 
-        .status-card button:hover {
-            transform: scale(1.05);
-        }
-
-        .status-card button:active {
-            transform: scale(0.98);
-        }
-
-        .status-card button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
         .status-normal button {
-            background: #ff6b35;
+            background: #17a2b8;
         }
 
         .status-normal button:hover {
-            background: #e55a2b;
+            background: #138496;
         }
 
         .status-warning button {
             background: #ffc107;
-            color: #000;
         }
 
         .status-warning button:hover {
@@ -591,64 +538,64 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>🚚 GHN Shipper Simulator</h1>
+            <h1>GHN Shipper Simulator Tool</h1>
             <p style="color: #6c757d; margin-top: 10px;">Công cụ giả lập các trạng thái vận chuyển đơn hàng GHN</p>
         </div>
 
         <!-- Order ID Input -->
         <div class="order-input-section">
-            <h2>📦 Nhập Mã GHN</h2>
-            <input type="text" id="orderIdInput" placeholder="Nhập Mã GHN - VD: GHN789011">
-            <button class="btn-fetch" onclick="fetchOrderDetail()">🔍 Lấy thông tin đơn hàng</button>
+            <h2>Nhập Mã GHN</h2>
+            <input type="text" id="orderIdInput" placeholder="Nhập Mã GHN - VD: [2050AD]_AD1207">
+            <button class="btn-fetch" onclick="fetchOrderDetail()">Lấy thông tin đơn hàng</button>
         </div>
 
         <!-- Order Detail Section -->
         <div class="order-detail-section" id="orderDetailSection" style="display: none;">
-            <h2>📋 Thông tin đơn hàng</h2>
+            <h2>Thông tin đơn hàng</h2>
             <div class="order-detail-content" id="orderDetailContent"></div>
         </div>
 
         <!-- Normal Flow Section -->
-        <h2 style="color: white; margin-bottom: 15px;">✅ Luồng Giao Hàng Bình Thường</h2>
+        <h2 style="color: white; margin-bottom: 15px;">Luồng Giao Hàng Bình Thường</h2>
         <div class="status-grid">
             <div class="status-card status-normal">
-                <h3>🚗 Đang Lấy Hàng</h3>
-                <p>GHN đang trên đường tới seller lấy hàng</p>
+                <h3>Đang Lấy Hàng</h3>
+                <p>GHN đang trên đường tới người bán lấy hàng</p>
                 <button onclick="callApi('test-picking')">Cập nhật Đang Lấy Hàng</button>
             </div>
 
             <div class="status-card status-normal">
-                <h3>📦 Đã Lấy Hàng</h3>
+                <h3>Đã Lấy Hàng</h3>
                 <p>GHN đã lấy được hàng và vận chuyển tới kho</p>
                 <button onclick="callApi('test-picked')">Cập nhật Đã Lấy Hàng</button>
             </div>
 
             <div class="status-card status-normal">
-                <h3>🏪 Đang Nhập Kho</h3>
+                <h3>Đang Nhập Kho</h3>
                 <p>GHN đã đưa hàng đến kho</p>
                 <button onclick="callApi('test-storing')">Cập nhật Đang Nhập Kho</button>
             </div>
 
             <div class="status-card status-normal">
-                <h3>🚛 Đang Vận Chuyển</h3>
+                <h3>Đang Vận Chuyển</h3>
                 <p>GHN đang vận chuyển hàng</p>
                 <button onclick="callApi('test-transporting')">Cập nhật Đang Vận Chuyển</button>
             </div>
 
             <div class="status-card status-normal">
-                <h3>📋 Đang Phân Loại</h3>
+                <h3>Đang Phân Loại</h3>
                 <p>GHN đang phân loại đơn hàng</p>
                 <button onclick="callApi('test-sorting')">Cập nhật Đang Phân Loại</button>
             </div>
 
             <div class="status-card status-normal">
-                <h3>🏃 Đang Giao Hàng</h3>
+                <h3>Đang Giao Hàng</h3>
                 <p>GHN đang giao hàng cho khách</p>
                 <button onclick="callApi('test-delivering')">Cập nhật Đang Giao Hàng</button>
             </div>
 
             <div class="status-card status-success">
-                <h3>✅ Đã Giao Hàng</h3>
+                <h3>Đã Giao Hàng</h3>
                 <p>Giao hàng thành công</p>
                 <button onclick="callApi('test-delivered')">Cập nhật Đã Giao Hàng</button>
             </div>
@@ -657,56 +604,56 @@
         <hr class="section-divider">
 
         <!-- Problem Flow Section -->
-        <h2 style="color: white; margin-bottom: 15px;">⚠️ Luồng Gặp Sự Cố</h2>
+        <h2 style="color: white; margin-bottom: 15px;">Luồng Gặp Sự Cố</h2>
         <div class="status-grid">
             <div class="status-card status-warning">
-                <h3>❌ Giao Hàng Thất Bại</h3>
+                <h3>Giao Hàng Thất Bại</h3>
                 <p>Giao hàng thất bại</p>
                 <button onclick="callApi('test-delivery-fail')">Cập nhật Giao Hàng Thất Bại</button>
             </div>
 
             <div class="status-card status-warning">
-                <h3>🔄 Đang Hoàn Hàng</h3>
-                <p>GHN đang trên đường trả hàng cho seller</p>
+                <h3>Đang Hoàn Hàng</h3>
+                <p>GHN đang trên đường trả hàng cho người bán</p>
                 <button onclick="callApi('test-returning')">Cập nhật Đang Hoàn Hàng</button>
             </div>
 
             <div class="status-card status-warning">
-                <h3>↩️ Đã Hoàn Hàng</h3>
-                <p>GHN đã trả hàng cho seller</p>
+                <h3>Đã Hoàn Hàng</h3>
+                <p>GHN đã trả hàng cho người bán</p>
                 <button onclick="callApi('test-return')">Cập nhật Đã Hoàn Hàng</button>
             </div>
 
             <div class="status-card status-danger">
-                <h3>⚠️ Gặp Sự Cố</h3>
+                <h3>Gặp Sự Cố</h3>
                 <p>Đơn hàng gặp sự cố (có thể dẫn đến trả hàng)</p>
                 <button onclick="callApi('test-exception')">Cập nhật Gặp Sự Cố</button>
             </div>
 
             <div class="status-card status-danger">
-                <h3>💔 Hàng Hư Hỏng</h3>
-                <p>Hàng bị hư hại. GHN bồi thường theo % insurance</p>
+                <h3>Hàng Hư Hỏng</h3>
+                <p>Hàng bị hư hại. GHN bồi thường cho người bán</p>
                 <button onclick="callApi('test-damage')">Cập nhật Hàng Hư Hỏng</button>
             </div>
 
             <div class="status-card status-danger">
-                <h3>🔍 Hàng Thất Lạc</h3>
-                <p>Đơn hàng bị thất lạc. GHN bồi thường 100% cho seller</p>
+                <h3>Hàng Thất Lạc</h3>
+                <p>Đơn hàng bị thất lạc. GHN bồi thường cho người bán </p>
                 <button onclick="callApi('test-lost')">Cập nhật Hàng Thất Lạc</button>
             </div>
         </div>
 
         <!-- Log Section -->
         <!-- <div class="log-section">
-            <h2>📋 Nhật ký hoạt động</h2>
-            <button class="clear-log-btn" onclick="clearLog()">🗑️ Xóa log</button>
+            <h2>Nhật ký hoạt động</h2>
+            <button class="clear-log-btn" onclick="clearLog()">Xóa log</button>
             <div id="logContainer"></div>
         </div> -->
 
         <!-- Configuration Section - MOVED TO BOTTOM -->
         <div class="config-section">
             <div class="config-header" onclick="toggleConfig()">
-                <h3>⚙️ Cấu hình API Endpoint</h3>
+                <h3>Cấu hình API Endpoint</h3>
                 <span class="config-toggle" id="configToggle">▼</span>
             </div>
             <div class="config-content" id="configContent">
@@ -714,11 +661,11 @@
                     <div class="input-group">
                         <label for="apiEndpoint">Base URL:</label>
                         <input type="text" id="apiEndpoint" placeholder="http://localhost:5219"
-                            value="http://localhost:5000">
-                        <button class="btn-save" onclick="saveEndpoint()">💾 Lưu</button>
+                            value="https://tinhhoaquenha.online">
+                        <button class="btn-save" onclick="saveEndpoint()">Lưu</button>
                     </div>
                     <div class="config-tip">
-                        💡 <strong>Hướng dẫn:</strong> Thay đổi từ <strong>localhost</strong> sang
+                        <strong>Hướng dẫn:</strong> Thay đổi từ <strong>localhost</strong> sang
                         <strong>staging/production URL</strong> khi cần test trên server. Cấu hình sẽ được lưu tự động
                         vào trình duyệt.
                     </div>
